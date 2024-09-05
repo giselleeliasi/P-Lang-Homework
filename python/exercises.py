@@ -17,7 +17,11 @@ def change(amount: int) -> dict[int, int]:
 
 # Write your first then lower case function here
 
-
+def first_then_lower_case(sequence, predicate):
+    for element in sequence:
+        if predicate(element):
+            return element.lower()
+    return None
 
 
 # Write your powers generator here

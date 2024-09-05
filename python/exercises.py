@@ -35,6 +35,18 @@ def powers_generator(*, base: int, limit: int):
 
 
 # Write your say function here
+def say(word=""):
+    words = []
+    def chain(next_word=None):
+        if next_word is not None:
+            words.append(next_word)
+            return chain
+        else:
+            return " ".join(words)
+    return chain if word == "" else chain(word)
+
+
+
 
 
 # Write your line count function here

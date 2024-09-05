@@ -19,7 +19,7 @@ def change(amount: int) -> dict[int, int]:
 
 def first_then_lower_case(sequence, predicate):
     for element in sequence:
-        if predicate(element):
+        if predicate(element) and isinstance(element,str):
             return element.lower()
     return None
 

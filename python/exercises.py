@@ -13,10 +13,21 @@ def change(amount: int) -> dict[int, int]:
     return counts
 
 
+
+
 # Write your first then lower case function here
 
 
+
+
 # Write your powers generator here
+def powers_generator(*, base: int, limit: int):
+    power = 1
+    while power <= limit:
+        yield power
+        power *= base
+
+
 
 
 # Write your say function here

@@ -35,15 +35,21 @@ def powers_generator(*, base: int, limit: int):
 
 
 # Write your say function here
-def say(word=""):
-    words = []
-    def chain(next_word=None):
-        if next_word is not None:
-            words.append(next_word)
-            return chain
-        else:
-            return " ".join(words)
-    return chain if word == "" else chain(word)
+def say(first_word=""):
+    def next_word(word=None):
+        if word is None:
+            return first_word
+        return say(first_word + " " + word)
+    return next_word
+    
+    # words = []
+    # def chain(next_word=None):
+    #     if next_word is not None:
+    #         words.append(next_word)
+    #         return chain
+    #     else:
+    #         return " ".join(words)
+    # return chain if word == "" else chain(word)
 
 
 

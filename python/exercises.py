@@ -67,3 +67,14 @@ def meaningful_line_count(filename: str) -> int:
         
 
 # Write your Quaternion class here
+class Quaternion:
+
+    def __init__(a, b, c ,d) -> None:
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+
+    @property
+    def coefficients(self):
+        return(self.a, self.b, self.c, self.d)

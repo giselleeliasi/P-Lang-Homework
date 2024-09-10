@@ -35,13 +35,14 @@ def powers_generator(*, base: int, limit: int):
 
 
 # Write your say function here
-def say(first_word=""):
+def say(first_word=" "):
     def next_word(word=None):
         if word is None:
             return first_word
         return say(first_word + " " + word)
     return next_word
-    
+
+
     # words = []
     # def chain(next_word=None):
     #     if next_word is not None:
@@ -52,10 +53,17 @@ def say(first_word=""):
     # return chain if word == "" else chain(word)
 
 
-
-
-
 # Write your line count function here
-
+def meaningful_line_count(filename: str) -> int:
+    try:
+        with open(filename, 'r') as file:
+            count = 0
+            for line in file:
+                stripped_line = line.strip()
+                if stripped_line and len(stripped_line) > 1:count += 1
+            return count
+    except FileNotFoundError:
+        raise FileNotFoundError(f"No such file: '{filename}'")
+        
 
 # Write your Quaternion class here

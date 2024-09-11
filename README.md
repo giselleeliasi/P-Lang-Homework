@@ -1,6 +1,29 @@
-# Homework Template for CMSI 3801
+Giselle Eliasi and Jillian Hunter CMSI 3801 Homework
 
-Welcome!
+Description-
+
+Roles-
+Python:
+Q1:Giselle
+Q2:Jillian
+Q3:Giselle
+Q4:Jillian
+Q5:Giselle & Jillian
+
+Lua:
+Q1:Giselle
+Q2:Jillian
+Q3:Giselle
+Q4:Jillian
+Q5:Giselle & Jillian
+
+Javascript:
+Q1:Giselle
+Q2:Jillian
+Q3:Giselle
+Q4:Jillian
+Q5:Giselle & Jillian
+
 
 ## Instructions
 

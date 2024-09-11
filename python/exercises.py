@@ -43,14 +43,14 @@ def say(first_word=" "):
     return next_word
 
 
-    # words = []
-    # def chain(next_word=None):
-    #     if next_word is not None:
-    #         words.append(next_word)
-    #         return chain
-    #     else:
-    #         return " ".join(words)
-    # return chain if word == "" else chain(word)
+    words = []
+    def chain(next_word=None):
+        if next_word is not None:
+            words.append(next_word)
+            return chain
+        else:
+            return " ".join(words)
+    return chain if word == "" else chain(word)
 
 
 # Write your line count function here
@@ -60,11 +60,13 @@ def meaningful_line_count(filename: str) -> int:
             count = 0
             for line in file:
                 stripped_line = line.strip()
-                if stripped_line and len(stripped_line) > 1:count += 1
+                # Meaningful lines are those with more than 1 character that are not just symbols like '----'
+                if stripped_line and len(stripped_line) > 1 and not stripped_line.startswith('#'):
+                    count += 1
             return count
     except FileNotFoundError:
         raise FileNotFoundError(f"No such file: '{filename}'")
-        
+
 
 # Write your Quaternion class here
 class Quaternion:

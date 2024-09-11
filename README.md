@@ -3,6 +3,8 @@ Giselle Eliasi and Jillian Hunter CMSI 3801 Homework
 Description-
 
 Roles-
+
+
 Python:
 Q1:Giselle
 Q2:Jillian

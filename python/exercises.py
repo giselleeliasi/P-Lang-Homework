@@ -96,6 +96,29 @@ class Quaternion:
                 self.c == other.c and
                 self.d == other.d)
 
+    def __mul__(self, other):
+        a1, b1, c1, d1 = self.a, self.b, self.c, self.d
+        a2, b2, c2, d2 = other.a, other.b, other.c, other.d
+        return Quaternion(
+            a1*a2 - b1*b2 - c1*c2 - d1*d2,
+            a1*b2 + b1*a2 + c1*d2 - d1*c2,
+            a1*c2 - b1*d2 + c1*a2 + d1*b2,
+            a1*d2 + b1*c2 - c1*b2 + d1*a2
+        )
+
+
+    def __str__(self):
+        terms = []
+        if self.a != 0:
+            terms.append(f"{self.a}")
+        if self.b != 0:
+            terms.append(f"{'+' if self.b > 0 else ''}{self.b}i")
+        if self.c != 0:
+            terms.append(f"{'+' if self.c > 0 else ''}{self.c}j")
+        if self.d != 0:
+            terms.append(f"{'+' if self.d > 0 else ''}{self.d}k")
+        return ''.join(terms) if terms else '0'
+
 
     def __repr__(self):
         return f"Quaternion({self.a}, {self.b}, {self.c}, {self.d})"

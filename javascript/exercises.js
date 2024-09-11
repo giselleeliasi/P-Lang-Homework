@@ -26,6 +26,13 @@ export function firstThenLowerCase(sequence, predicate) {
 }
 
 // Write your powers generator here
+export function* powersGenerator({ ofBase, upTo }) {
+  let power = 1
+  while (power <= upTo) {
+    yield power
+    power *= ofBase
+  }
+}
 
 // Write your say function here
 

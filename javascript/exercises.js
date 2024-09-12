@@ -60,21 +60,38 @@ export function say(word) {
   return next(word)
 }
 
-// Write your line count function here
 export async function meaningfulLineCount(filePath) {
   try {
     const fileHandle = await open(filePath, "r")
     const reader = fileHandle.createReadStream()
     let lineCount = 0
+    let buffer = ""
 
     for await (const chunk of reader) {
-      const lines = chunk.toString().split("\n")
+      buffer += chunk.toString()
+      let lines = buffer.split("\n")
+      buffer = lines.pop()
+
       for (const line of lines) {
-        if (line.trim().length > 0) {
+        const strippedLine = line.trim()
+        if (
+          strippedLine.length > 0 &&
+          strippedLine.length > 1 &&
+          !strippedLine.startsWith("#")
+        ) {
           lineCount++
         }
       }
     }
+
+    if (
+      buffer.trim().length > 0 &&
+      buffer.length > 1 &&
+      !buffer.trim().startsWith("#")
+    ) {
+      lineCount++
+    }
+
     await fileHandle.close()
     return lineCount
   } catch (error) {

@@ -26,7 +26,7 @@ def first_then_lower_case(sequence, predicate, / ):
 
 
 
-# Write your powers generator here
+
 def powers_generator(*, base: int, limit: int):
     power = 1
     while power <= limit:
@@ -37,17 +37,39 @@ def powers_generator(*, base: int, limit: int):
 
 
 # Write your say function here
-def say(first_word=""):
-    def next_word(word=None):
-        if word is None:
-            return first_word
-        # Simply append the new word with exactly one space in between
-        return say(first_word + " "+ word)
-    return next_word
+# def say(first_word=""):
+#     def next_word(word=None):
+#         if word is None:
+#             return first_word
+#         # Simply append the new word with exactly one space in between
+#         return say(first_word + " "+ word)
+#     return next_word
 
 
 
-# Write your line count function here
+
+def say(word=None):
+    result = []
+
+    def next_word(input_word=None):
+        if input_word is None:
+            return ''.join(result)
+        
+        if input_word == " ":
+            if result and result[-1] != " ":
+                result.append(" ")
+        else:
+            if result and result[-1] != " ":
+                result.append(" ")
+            result.append(input_word)
+        
+        return next_word
+
+    return next_word(word)
+
+
+
+
 def meaningful_line_count(filename: str) -> int:
     try:
         with open(filename, 'r') as file:
@@ -64,7 +86,7 @@ def meaningful_line_count(filename: str) -> int:
 
 
 
-# Write your Quaternion class here
+
 class Quaternion:
     def __init__(self, a:float, b:float, c:float ,d:float) -> None:
         self.a = a

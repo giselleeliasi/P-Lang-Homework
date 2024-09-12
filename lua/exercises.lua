@@ -39,6 +39,24 @@ end
 
 
 -- Write your say function here
+function say(word)
+  local result = {}
+
+  local function next_word(input_word)
+    if input_word == nil then return table.concat(result, "") end
+    if input_word == " " and #result > 0 and result[#result] ~= " " then
+      table.insert(result, " ")
+    elseif input_word ~= " " then
+      if #result > 0 and result[#result] ~= " " then table.insert(result," ") end
+      table.insert(result, input_word)
+    end
+    return next_word
+  end
+
+  return next_word(word)
+end
+
+
 
 -- Write your line count function here
 

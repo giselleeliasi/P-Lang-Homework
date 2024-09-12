@@ -80,3 +80,94 @@ end
 
 
 -- Write your Quaternion table here
+-- Define the Quaternion table and set its metatable
+Quaternion = {}
+Quaternion.__index = Quaternion
+
+-- Constructor
+function Quaternion.new(a, b, c, d)
+    local self = setmetatable({}, Quaternion)
+    self.a = a
+    self.b = b
+    self.c = c
+    self.d = d
+    return self
+end
+
+-- Addition
+function Quaternion.__add(q1, q2)
+    return Quaternion.new(
+        q1.a + q2.a,
+        q1.b + q2.b,
+        q1.c + q2.c,
+        q1.d + q2.d
+    )
+end
+
+-- Multiplication
+function Quaternion.__mul(q1, q2)
+    local a1, b1, c1, d1 = q1.a, q1.b, q1.c, q1.d
+    local a2, b2, c2, d2 = q2.a, q2.b, q2.c, q2.d
+
+    return Quaternion.new(
+        a1 * a2 - b1 * b2 - c1 * c2 - d1 * d2,
+        a1 * b2 + b1 * a2 + c1 * d2 - d1 * c2,
+        a1 * c2 - b1 * d2 + c1 * a2 + d1 * b2,
+        a1 * d2 + b1 * c2 - c1 * b2 + d1 * a2
+    )
+end
+
+-- Equality
+function Quaternion.__eq(q1, q2)
+    return q1.a == q2.a and q1.b == q2.b and q1.c == q2.c and q1.d == q2.d
+end
+
+-- String representation
+function Quaternion:__tostring()
+    local terms = {}
+    if self.a ~= 0 then table.insert(terms, tostring(self.a)) end
+    if self.b ~= 0 then
+        local bTerm = self.b == 1 and "i" or self.b == -1 and "-i" or tostring(self.b) .. "i"
+        table.insert(terms, bTerm)
+    end
+    if self.c ~= 0 then
+        local cTerm = self.c == 1 and "j" or self.c == -1 and "-j" or tostring(self.c) .. "j"
+        table.insert(terms, cTerm)
+    end
+    if self.d ~= 0 then
+        local dTerm = self.d == 1 and "k" or self.d == -1 and "-k" or tostring(self.d) .. "k"
+        table.insert(terms, dTerm)
+    end
+    if #terms == 0 then return "0" end
+
+    local result = terms[1]
+    for i = 2, #terms do
+        local term = terms[i]
+        if term:sub(1, 1) == "-" then
+            result = result .. term
+        else
+            result = result .. "+" .. term
+        end
+    end
+    return result
+end
+
+-- JSON representation
+function Quaternion:toJSON()
+    return string.format("Quaternion(%s, %s, %s, %s)", self.a, self.b, self.c, self.d)
+end
+
+-- Coefficients
+function Quaternion:coefficients()
+    return {self.a, self.b, self.c, self.d}
+end
+
+-- Conjugate
+function Quaternion:conjugate()
+    return Quaternion.new(self.a, -self.b, -self.c, -self.d)
+end
+
+-- Norm
+function Quaternion:norm()
+    return math.sqrt(self.a^2 + self.b^2 + self.c^2 + self.d^2)
+end

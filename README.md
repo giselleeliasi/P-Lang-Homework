@@ -1,6 +1,8 @@
 Giselle Eliasi and Jillian Hunter CMSI 3801 Homework
 
 Description-
+Throughout this course we are learning and producing code in different languages. 
+
 
 Roles-
 

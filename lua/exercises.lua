@@ -59,5 +59,24 @@ end
 
 
 -- Write your line count function here
+function meaningful_line_count(filename)
+  local file, err = io.open(filename, "r")
+  if not file then 
+    error("No such file")
+  end
+
+  local count = 0
+  for line in file:lines() do
+    local counted_line = line:match ("^%s*(.-)%s*$") --learned how to cut down white space (youtube)
+    if counted_line ~= "" and #counted_line > 1 and counted_line:sub (1,1) ~= "#" then
+      count = count + 1
+    end
+  end
+
+  file:close()
+  return count
+end
+
+
 
 -- Write your Quaternion table here

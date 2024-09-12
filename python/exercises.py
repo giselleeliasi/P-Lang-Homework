@@ -82,63 +82,62 @@ def meaningful_line_count(filename: str) -> int:
     except FileNotFoundError:
         raise FileNotFoundError(f"No such file: '{filename}'")
 
-
-
-
-
-
+@dataclass
 class Quaternion:
-    def __init__(self, a:float, b:float, c:float ,d:float) -> None:
-        self.a = a
-        self.b = b
-        self.c = c
-        self.d = d
+    a: float
+    b: float
+    c: float
+    d: float
 
     def __add__(self, other):
+        if not isinstance(other, Quaternion):
+            return NotImplemented
         return Quaternion(
             self.a + other.a,
             self.b + other.b,
             self.c + other.c,
-            self.d + other.d,
+            self.d + other.d
         )
 
-
     def __eq__(self, other):
+        if not isinstance(other, Quaternion):
+            return False
         return (self.a == other.a and 
                 self.b == other.b and
                 self.c == other.c and
                 self.d == other.d)
 
     def __mul__(self, other):
+        if not isinstance(other, Quaternion):
+            return NotImplemented
+
         a1, b1, c1, d1 = self.a, self.b, self.c, self.d
         a2, b2, c2, d2 = other.a, other.b, other.c, other.d
         return Quaternion(
-            a1*a2 - b1*b2 - c1*c2 - d1*d2,
-            a1*b2 + b1*a2 + c1*d2 - d1*c2,
-            a1*c2 - b1*d2 + c1*a2 + d1*b2,
-            a1*d2 + b1*c2 - c1*b2 + d1*a2
+            a1 * a2 - b1 * b2 - c1 * c2 - d1 * d2,
+            a1 * b2 + b1 * a2 + c1 * d2 - d1 * c2,
+            a1 * c2 - b1 * d2 + c1 * a2 + d1 * b2,
+            a1 * d2 + b1 * c2 - c1 * b2 + d1 * a2
         )
-
 
     def __str__(self):
         terms = []
         if self.a != 0:
             terms.append(f"{self.a}")
         if self.b != 0:
-            terms.append(f"{'+' if self.b > 0 else ''}{self.b}i")
+            terms.append(f"{'+' if self.b > 0 and terms else ''}{'' if abs(self.b) == 1 else self.b}i")
         if self.c != 0:
-            terms.append(f"{'+' if self.c > 0 else ''}{self.c}j")
+            terms.append(f"{'+' if self.c > 0 and terms else ''}{'' if abs(self.c) == 1 else self.c}j")
         if self.d != 0:
-            terms.append(f"{'+' if self.d > 0 else ''}{self.d}k")
+            terms.append(f"{'+' if self.d > 0 and terms else ''}{'' if abs(self.d) == 1 else self.d}k")
         return ''.join(terms) if terms else '0'
-
 
     def __repr__(self):
         return f"Quaternion({self.a}, {self.b}, {self.c}, {self.d})"
 
     @property
     def coefficients(self):
-        return(self.a, self.b, self.c, self.d)
+        return (self.a, self.b, self.c, self.d)
 
     @property
     def conjugate(self):
@@ -147,5 +146,3 @@ class Quaternion:
     @property
     def norm(self):
         return sqrt(self.a**2 + self.b**2 + self.c**2 + self.d**2)
-
-

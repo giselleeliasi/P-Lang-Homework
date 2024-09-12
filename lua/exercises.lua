@@ -13,7 +13,8 @@ function change(amount)
   return counts
 end
 
--- Write your first then lower case function here
+
+
 function first_then_lower_case(sequence, predicate)
   for _, element in ipairs(sequence) do
     if predicate(element) and type(element) == "string" then
@@ -25,7 +26,7 @@ end
 
 
 
--- Write your powers generator here
+
 function powers_generator(base, limit)
   return coroutine.create(function()
     local power = 1
@@ -38,7 +39,7 @@ end
 
 
 
--- Write your say function here
+
 function say(word)
   local result = {}
 
@@ -58,7 +59,7 @@ end
 
 
 
--- Write your line count function here
+
 function meaningful_line_count(filename)
   local file, err = io.open(filename, "r")
   if not file then 
@@ -79,12 +80,11 @@ end
 
 
 
--- Write your Quaternion table here
--- Define the Quaternion table and set its metatable
+
 Quaternion = {}
 Quaternion.__index = Quaternion
 
--- Constructor
+
 function Quaternion.new(a, b, c, d)
     local self = setmetatable({}, Quaternion)
     self.a = a
@@ -94,7 +94,7 @@ function Quaternion.new(a, b, c, d)
     return self
 end
 
--- Addition
+
 function Quaternion.__add(q1, q2)
     return Quaternion.new(
         q1.a + q2.a,
@@ -104,7 +104,7 @@ function Quaternion.__add(q1, q2)
     )
 end
 
--- Multiplication
+
 function Quaternion.__mul(q1, q2)
     local a1, b1, c1, d1 = q1.a, q1.b, q1.c, q1.d
     local a2, b2, c2, d2 = q2.a, q2.b, q2.c, q2.d
@@ -117,12 +117,12 @@ function Quaternion.__mul(q1, q2)
     )
 end
 
--- Equality
+
 function Quaternion.__eq(q1, q2)
     return q1.a == q2.a and q1.b == q2.b and q1.c == q2.c and q1.d == q2.d
 end
 
--- String representation
+
 function Quaternion:__tostring()
     local terms = {}
     if self.a ~= 0 then table.insert(terms, tostring(self.a)) end
@@ -152,22 +152,22 @@ function Quaternion:__tostring()
     return result
 end
 
--- JSON representation
+
 function Quaternion:toJSON()
     return string.format("Quaternion(%s, %s, %s, %s)", self.a, self.b, self.c, self.d)
 end
 
--- Coefficients
+
 function Quaternion:coefficients()
     return {self.a, self.b, self.c, self.d}
 end
 
--- Conjugate
+
 function Quaternion:conjugate()
     return Quaternion.new(self.a, -self.b, -self.c, -self.d)
 end
 
--- Norm
+
 function Quaternion:norm()
     return math.sqrt(self.a^2 + self.b^2 + self.c^2 + self.d^2)
 end

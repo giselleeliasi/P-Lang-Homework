@@ -34,19 +34,25 @@ export function* powersGenerator({ ofBase, upTo }) {
   }
 }
 
-// Write your say function here
 export function say(word) {
   let result = ""
+  let isFirstWord = true
 
   function next(input) {
     if (input === undefined) {
       return result
     }
-    if (input !== "") {
-      if (result.length > 0) {
+    if (input === " ") {
+      if (!isFirstWord && result.length > 0) {
+        result += " "
+      }
+      isFirstWord = false
+    } else {
+      if (!isFirstWord) {
         result += " "
       }
       result += input
+      isFirstWord = false
     }
     return next
   }
@@ -54,20 +60,26 @@ export function say(word) {
   return next(word)
 }
 
-// export function say(word) {
-//   let words = ""
-
-//   function next(input) {
-//     if (input === undefined) {
-//       return words.trim()
-//     }
-//     words = words ? `${words} ${input}` : input
-//     return next
-//   }
-
-//   return next(word)
-// }
-
 // Write your line count function here
+export async function meaningfulLineCount(filePath) {
+  try {
+    const fileHandle = await open(filePath, "r")
+    const reader = fileHandle.createReadStream()
+    let lineCount = 0
+
+    for await (const chunk of reader) {
+      const lines = chunk.toString().split("\n")
+      for (const line of lines) {
+        if (line.trim().length > 0) {
+          lineCount++
+        }
+      }
+    }
+    await fileHandle.close()
+    return lineCount
+  } catch (error) {
+    throw new Error(`Error reading file: ${error.message}`)
+  }
+}
 
 // Write your Quaternion class here

@@ -3,14 +3,14 @@ Giselle Eliasi and Jillian Hunter CMSI 3801 Homework
 Description-
 Throughout this course we are learning and producing code in different languages. 
 
-## Function Descriptions:
-change: This function finds the least number of coins needed to make an integer in cents and returns an error if the input is not an integer or is negative.
+## Homework 1 Function Descriptions:
+Change: This function finds the least number of coins needed to make an integer in cents and returns an error if the input is not an integer or is negative.
 
-first_then_lower_case: This function iterates through a sequence and applys a predicate function to each element which returns the first string to statisfy this predicate (in lowercase) and returns none if no element is found.
+First_then_lower_case: This function iterates through a sequence and applys a predicate function to each element which returns the first string to statisfy this predicate (in lowercase) and returns none if no element is found.
 
-powers_generator: This function returns powers of a given base starting at 1 up to a limit by multiplying the base until the result exceeds the limit.
+Powers_generator: This function returns powers of a given base starting at 1 up to a limit by multiplying the base until the result exceeds the limit.
 
-say: This function returns a word and appends it to a sentence with each word seperated by one space and when called without an argument, returns the accumulated sentence.
+Say: This function returns a word and appends it to a sentence with each word seperated by one space and when called without an argument, returns the accumulated sentence.
 
 Quaternion: This class contains functions for addition, multiplication, string representation, and equality checks for quaternions and also gives properties for accessing coefficents, conjugatem and norm. 
 

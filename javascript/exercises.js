@@ -1,5 +1,4 @@
 import exp from "node:constants"
-
 import { readSync } from "node:fs"
 import { open } from "node:fs/promises"
 
@@ -100,14 +99,13 @@ export async function meaningfulLineCount(filePath) {
   }
 }
 
-// Write your Quaternion class here
 export class Quaternion {
   constructor(a, b, c, d) {
     this.a = a
     this.b = b
     this.c = c
     this.d = d
-    Object.freeze(this) // Make the instance immutable
+    Object.freeze(this)
   }
 
   plus(other) {
@@ -165,10 +163,9 @@ export class Quaternion {
 
     if (terms.length === 0) return "0"
 
-    // Join terms with appropriate '+' and '-' signs
     return terms
       .map((term, index) => {
-        if (index === 0) return term // The first term is not prefixed with '+'
+        if (index === 0) return term
         return term.startsWith("-") ? term : `+${term}`
       })
       .join("")

@@ -16,7 +16,7 @@ def change(amount: int) -> dict[int, int]:
 
 
 
-# Write your first then lower case function here
+
 def first_then_lower_case(sequence, predicate, / ):
     for element in sequence:
         if predicate(element) and isinstance(element,str):
@@ -33,17 +33,6 @@ def powers_generator(*, base: int, limit: int):
         yield power
         power *= base
 
-
-
-
-# Write your say function here
-# def say(first_word=""):
-#     def next_word(word=None):
-#         if word is None:
-#             return first_word
-#         # Simply append the new word with exactly one space in between
-#         return say(first_word + " "+ word)
-#     return next_word
 
 
 
@@ -125,11 +114,11 @@ class Quaternion:
         if self.a != 0:
             terms.append(f"{self.a}")
         if self.b != 0:
-            terms.append(f"{'+' if self.b > 0 and terms else ''}{'' if abs(self.b) == 1 else self.b}i")
+            terms.append(f"{'+' if self.b > 0 and terms else ''}{'-' if self.b < 0 else ''}{'' if abs(self.b) == 1 else abs(self.b)}i")
         if self.c != 0:
-            terms.append(f"{'+' if self.c > 0 and terms else ''}{'' if abs(self.c) == 1 else self.c}j")
+            terms.append(f"{'+' if self.c > 0 and terms else ''}{'-' if self.c < 0 else ''}{'' if abs(self.c) == 1 else abs(self.c)}j")
         if self.d != 0:
-            terms.append(f"{'+' if self.d > 0 and terms else ''}{'' if abs(self.d) == 1 else self.d}k")
+            terms.append(f"{'+' if self.d > 0 and terms else ''}{'-' if self.d < 0 else ''}{'' if abs(self.d) == 1 else abs(self.d)}k")
         return ''.join(terms) if terms else '0'
 
     def __repr__(self):

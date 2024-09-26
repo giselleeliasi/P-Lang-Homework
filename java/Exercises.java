@@ -20,7 +20,12 @@ public class Exercises {
         return counts;
     }
 
-    // Write your first then lower case function here
+    public static Optional<String> firstThenLowerCase(List<String> strings, Predicate<String> predicate) {
+        return strings.stream()                     
+                .filter(predicate)                   
+                .map(String::toLowerCase)         
+                .findFirst();                    
+    }
 
     // Write your say function here
 

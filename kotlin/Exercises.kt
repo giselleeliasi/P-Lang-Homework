@@ -23,6 +23,15 @@ fun firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): S
 
 // Write your meaningfulLineCount function here
 
+fun meaningfulLineCount(fileName: String): Long {
+    BufferedReader(FileReader(fileName)).use { reader ->
+        return reader.lineSequence()
+        .filter { line -> line.isNotBlank() && !line.trimStart().startsWith("#")}
+        .count().toLong()
+    }
+}
+
+
 // Write your Quaternion data class here
 
 // Write your Binary Search Tree interface and implementing classes here

@@ -119,3 +119,30 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
 }
 
 // Write your Binary Search Tree interface and implementing classes here
+
+sealed interface BinarySearchTree {
+    fun insert(value: String): BinarySearchTree
+    fun contains(value: String): Boolean
+    fun size(): Int
+    override fun toString(): String
+
+    object Empty : BinarySearchTree {
+        override fun insert(value: String): BinarySearchTree {
+            return Node(value, Empty, Empty)
+        }
+
+        override fun contains(value: String): Boolean = false
+        override fun size(): Int = 0
+        override fun toString(): String = "()"
+    }
+
+    data class Node(val value: String, val left: BinarySearchTree, val right: BinarySearchTree) : BinarySearchTree {
+        override fun insert(value: String): BinarySearchTree {
+            return when {
+                value < this.value -> Node(this.value, left.insert(value), right)
+                value > this.value -> Node(this.value, left, right.insert(value))
+                else -> this
+            }
+        }
+    }
+}

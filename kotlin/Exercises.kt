@@ -91,9 +91,28 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
     override fun toString(): String {
         return buildString {
             if (a != 0.0) append(a)
-            if (b > 0) append("+").append(b).append("i") else if (b < 0) append(b).append("i")
-            if (c > 0) append("+").append(c).append("j") else if (c < 0) append(c).append("j")
-            if (d > 0) append("+").append(d).append("k") else if (d < 0) append(d).append("k")
+            
+            if(b != 0.0) {
+                if (b > 0 && isNotEmpty()) append("+")
+                if (b == -1.0) append("-")
+                else if (b != 1.0) append(b)
+                append("i")
+            }
+
+            if(c != 0.0) {
+                if (c > 0 && isNotEmpty()) append("+")
+                if (c == -1.0) append("-")
+                else if (c != 1.0) append(c)
+                append("j")
+            }
+
+            if(d != 0.0) {
+                if (d > 0 && isNotEmpty()) append("+")
+                if (d == -1.0) append("-")
+                else if (d != 1.0) append(d)
+                append("k")
+            }
+            
             if (isEmpty()) append("0")
         }.toString()
     }

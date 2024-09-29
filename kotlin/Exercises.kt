@@ -59,7 +59,7 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
         val ZERO = Quaternion(0.0, 0.0, 0.0, 0.0)
         val I = Quaternion(0.0, 1.0, 0.0, 0.0)
         val J = Quaternion(0.0, 0.0, 1.0, 0.0)
-        Quaternion(0.0, 0.0, 0.0, 1.0)
+        val K = Quaternion(0.0, 0.0, 0.0, 1.0)
     }
 
     fun coefficients(): List<Double> {
@@ -68,6 +68,34 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
 
     fun conjugate(): Quaternion {
         return Quaternion(a, -b, -c, -d)
+    }
+
+    operator fun plus(other: Quaternion): Quaternion {
+        return Quaternion(
+            a + other.a,
+            b + other.b,
+            c + other.c,
+            d + other.d
+        )
+    }
+
+    operator fun times(other: Quaternion): Quaternion {
+        return Quaternion(
+            a * other.a - b * other.b - c * other.c - d * other.d,
+            a * other.b + b * other.a + c * other.d - d * other.c,
+            a * other.c - b * other.d + c * other.a + d * other.b,
+            a * other.d + b * other.c - c * other.b + d * other.a
+        )
+    }
+
+    override fun toString(): String {
+        return buildString {
+            if (a != 0.0) append(a)
+            if (b > 0) append("+").append(b).append("i") else if (b < 0) append(b).append("i")
+            if (c > 0) append("+").append(c).append("j") else if (c < 0) append(c).append("j")
+            if (d > 0) append("+").append(d).append("k") else if (d < 0) append(d).append("k")
+            if (isEmpty()) append("0")
+        }.toString()
     }
 }
 

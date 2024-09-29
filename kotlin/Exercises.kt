@@ -144,5 +144,23 @@ sealed interface BinarySearchTree {
                 else -> this
             }
         }
+        
+        override fun contains(value: String): Boolean {
+            return when {
+                value < this.value -> left.contains(value)
+                value > this.value -> right.contains(value)
+                else -> true
+            }
+        }
+
+        override fun size(): Int {
+            return 1 + left.size() + right.size()
+        }
+
+        override fun toString(): String {
+            val leftString = if (left is Empty) "" else left.toString()
+            val rightString = if (right is Empty) "" else right.toString()
+            return "($leftString$value$rightString)"
+        }
     }
 }

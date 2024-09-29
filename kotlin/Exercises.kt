@@ -21,6 +21,23 @@ fun firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): S
 
 // Write your say function here
 
+fun say(initialWord: String = "" ): SayChainable {
+    val words = mutableListOf(initialWord)
+
+    return object : SayChainable {
+        override fun and(word: String): SayChainable {
+            words.add(word)
+            return this
+        }
+        override val phrase: String
+            get() = words.joinToString(" ")
+    }
+}
+
+interface SayChainable{
+    fun and(word: String): SayChainable
+    val phrase: String
+}
 // Write your meaningfulLineCount function here
 
 fun meaningfulLineCount(fileName: String): Long {

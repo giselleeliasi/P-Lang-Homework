@@ -30,7 +30,7 @@ fun say(initialWord: String = "" ): SayChainable {
             return this
         }
         override val phrase: String
-            get() = words.joinToString(" ")
+            get() = words.joinToString(" ") 
     }
 }
 
@@ -38,6 +38,8 @@ interface SayChainable{
     fun and(word: String): SayChainable
     val phrase: String
 }
+
+
 // Write your meaningfulLineCount function here
 
 fun meaningfulLineCount(fileName: String): Long {
@@ -50,5 +52,23 @@ fun meaningfulLineCount(fileName: String): Long {
 
 
 // Write your Quaternion data class here
+
+data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double) {
+
+    companion object {
+        val ZERO = Quaternion(0.0, 0.0, 0.0, 0.0)
+        val I = Quaternion(0.0, 1.0, 0.0, 0.0)
+        val J = Quaternion(0.0, 0.0, 1.0, 0.0)
+        Quaternion(0.0, 0.0, 0.0, 1.0)
+    }
+
+    fun coefficients(): List<Double> {
+        return listOf(a, b, c, d)
+    }
+
+    fun conjugate(): Quaternion {
+        return Quaternion(a, -b, -c, -d)
+    }
+}
 
 // Write your Binary Search Tree interface and implementing classes here

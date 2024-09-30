@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Predicate;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,6 +30,38 @@ public class Exercises {
     }
 
     // Write your say function here
+    public static SayChainable say() {
+        return new SayChainable() {
+            @Override
+            public SayChainable and (String word) {
+                return say(word);
+            }
+
+            @Override
+            public String phrase() {
+                return "";
+            }
+        };
+    }
+    public static SayChainable say(String initialWord) {
+        return new SayChainable() {
+            private final String currentPhrase = initialWord;
+
+            @Override
+            public SayChainable and (String word) {
+                return say(currentPhrase + " " + word);
+            }
+
+            @Override
+            public String phrase() {
+                return currentPhrase;
+            }
+        };
+    }
+    interface SayChainable {
+        SayChainable and(String word);
+        String phrase();
+    }
 
 
     // Write your line count function here
@@ -46,7 +79,9 @@ public class Exercises {
         }
         return count;
     }
+    
 }
 // Write your Quaternion record class here
+
 
 // Write your BinarySearchTree sealed interface and its implementations here

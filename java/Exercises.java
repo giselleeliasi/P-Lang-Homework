@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.PublicKey;
 
 public class Exercises {
     static Map<Integer, Long> change(long amount) {
@@ -29,9 +30,23 @@ public class Exercises {
 
     // Write your say function here
 
-    // Write your line count function here
-}
 
+    // Write your line count function here
+    public static long meaningfulLineCount(String filename) throws IOException {
+        long count = 0;
+        
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty() && !trimmed.startsWith("#")) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
 // Write your Quaternion record class here
 
 // Write your BinarySearchTree sealed interface and its implementations here

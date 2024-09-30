@@ -21,8 +21,152 @@ fun firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): S
 
 // Write your say function here
 
+fun say(initialWord: String? = null): SayChainable {
+    if (initialWord == null) {
+        return object : SayChainable {
+            override fun and(word: String): SayChainable {
+                return say(word)
+            }
+            override val phrase: String
+                get() = ""
+        }
+    }
+    return object : SayChainable {
+        private val currentPhrase: String = initialWord
+        override fun and(word: String): SayChainable {
+            return say("$currentPhrase $word")
+        }
+        override val phrase: String
+            get() = currentPhrase
+    }
+}
+
+interface SayChainable {
+    fun and(word: String): SayChainable
+    val phrase: String
+}
+
 // Write your meaningfulLineCount function here
+
+fun meaningfulLineCount(fileName: String): Long {
+    BufferedReader(FileReader(fileName)).use { reader ->
+        return reader.lineSequence()
+        .filter { line -> line.isNotBlank() && !line.trimStart().startsWith("#")}
+        .count().toLong()
+    }
+}
+
 
 // Write your Quaternion data class here
 
+data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double) {
+
+    companion object {
+        val ZERO = Quaternion(0.0, 0.0, 0.0, 0.0)
+        val I = Quaternion(0.0, 1.0, 0.0, 0.0)
+        val J = Quaternion(0.0, 0.0, 1.0, 0.0)
+        val K = Quaternion(0.0, 0.0, 0.0, 1.0)
+    }
+
+    fun coefficients(): List<Double> {
+        return listOf(a, b, c, d)
+    }
+
+    fun conjugate(): Quaternion {
+        return Quaternion(a, -b, -c, -d)
+    }
+
+    operator fun plus(other: Quaternion): Quaternion {
+        return Quaternion(
+            a + other.a,
+            b + other.b,
+            c + other.c,
+            d + other.d
+        )
+    }
+
+    operator fun times(other: Quaternion): Quaternion {
+        return Quaternion(
+            a * other.a - b * other.b - c * other.c - d * other.d,
+            a * other.b + b * other.a + c * other.d - d * other.c,
+            a * other.c - b * other.d + c * other.a + d * other.b,
+            a * other.d + b * other.c - c * other.b + d * other.a
+        )
+    }
+
+    override fun toString(): String {
+        return buildString {
+            if (a != 0.0) append(a)
+            
+            if(b != 0.0) {
+                if (b > 0 && isNotEmpty()) append("+")
+                if (b == -1.0) append("-")
+                else if (b != 1.0) append(b)
+                append("i")
+            }
+
+            if(c != 0.0) {
+                if (c > 0 && isNotEmpty()) append("+")
+                if (c == -1.0) append("-")
+                else if (c != 1.0) append(c)
+                append("j")
+            }
+
+            if(d != 0.0) {
+                if (d > 0 && isNotEmpty()) append("+")
+                if (d == -1.0) append("-")
+                else if (d != 1.0) append(d)
+                append("k")
+            }
+            
+            if (isEmpty()) append("0")
+        }.toString()
+    }
+}
+
 // Write your Binary Search Tree interface and implementing classes here
+
+sealed interface BinarySearchTree {
+    fun insert(value: String): BinarySearchTree
+    fun contains(value: String): Boolean
+    fun size(): Int
+    override fun toString(): String
+
+    object Empty : BinarySearchTree {
+        override fun insert(value: String): BinarySearchTree {
+            return Node(value, Empty, Empty)
+        }
+
+        override fun contains(value: String): Boolean = false
+        override fun size(): Int = 0
+        override fun toString(): String = "()"
+    }
+
+    data class Node(val value: String, val left: BinarySearchTree, val right: BinarySearchTree) : BinarySearchTree {
+        override fun insert(value: String): BinarySearchTree {
+            return when {
+                value < this.value -> Node(this.value, left.insert(value), right)
+                value > this.value -> Node(this.value, left, right.insert(value))
+                else -> this
+            }
+        }
+        
+        override fun contains(value: String): Boolean {
+            return when {
+                value < this.value -> left.contains(value)
+                value > this.value -> right.contains(value)
+                else -> true
+            }
+        }
+
+        override fun size(): Int {
+            return 1 + left.size() + right.size()
+        }
+
+        override fun toString(): String {
+            val leftString = if (left is Empty) "" else left.toString()
+            val rightString = if (right is Empty) "" else right.toString()
+            return "($leftString$value$rightString)"
+        }
+    }
+}

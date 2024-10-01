@@ -177,3 +177,57 @@ extension Quaternion: Equatable {
 
 
 // Write your Binary Search Tree enum here
+indirect enum BinarySearchTree: CustomStringConvertible {
+    case empty
+    case node(value: String, left: BinarySearchTree, right: BinarySearchTree)
+
+    // Insert a new value into the BST
+    func insert(_ value: String) -> BinarySearchTree {
+        switch self {
+        case .empty:
+            return .node(value: value, left: .empty, right: .empty)
+        case .node(let currentValue, let left, let right):
+            if value < currentValue {
+                return .node(value: currentValue, left: left.insert(value), right: right)
+            } else {
+                return .node(value: currentValue, left: left, right: right.insert(value))
+            }
+        }
+    }
+
+    // Check if the tree contains a value
+    func contains(_ value: String) -> Bool {
+        switch self {
+        case .empty:
+            return false
+        case .node(let currentValue, let left, let right):
+            if value == currentValue {
+                return true
+            } else if value < currentValue {
+                return left.contains(value)
+            } else {
+                return right.contains(value)
+            }
+        }
+    }
+
+    // Compute the size of the tree
+    var size: Int {
+        switch self {
+        case .empty:
+            return 0
+        case .node(_, let left, let right):
+            return 1 + left.size + right.size
+        }
+    }
+
+    // Generate a string representation of the tree
+    var description: String {
+        switch self {
+        case .empty:
+            return "()"
+        case .node(let value, let left, let right):
+            return "(\(left.description)\(value)\(right.description))"
+        }
+    }
+}

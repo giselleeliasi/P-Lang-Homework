@@ -153,4 +153,85 @@ record Quaternion(double a, double b, double c, double d) {
     }
 }
 
-// Write your BinarySearchTree sealed interface and its implementations here
+
+
+sealed interface BinarySearchTree permits Empty, Node {
+    BinarySearchTree insert(String value);
+    boolean contains(String value);
+    int size();
+    @Override
+    String toString();
+}
+
+final class Empty implements BinarySearchTree {
+    Empty() {}
+
+    @Override
+    public BinarySearchTree insert(String value) {
+        return new Node(value, this, this);
+    }
+
+    @Override
+    public boolean contains(String value) {
+        return false;
+    }
+
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "()";
+    }
+}
+
+
+final class Node implements BinarySearchTree {
+    private final String value;
+    private final BinarySearchTree left;
+    private final BinarySearchTree right;
+
+    public Node(String value, BinarySearchTree left, BinarySearchTree right) {
+        this.value = value;
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public BinarySearchTree insert(String value) {
+        if (value.compareTo(this.value) < 0) {
+            return new Node(this.value, left.insert(value), right);
+        } else if (value.compareTo(this.value) > 0) {
+            return new Node(this.value, left, right.insert(value));
+        } else {
+            return this; 
+        }
+    }
+
+    @Override
+    public boolean contains(String value) {
+        if (value.compareTo(this.value) < 0) {
+            return left.contains(value);
+        } else if (value.compareTo(this.value) > 0) {
+            return right.contains(value);
+        } else {
+            return true; 
+        }
+    }
+
+    @Override
+    public int size() {
+        return 1 + left.size() + right.size();
+    }
+
+    @Override
+    public String toString() {
+        String leftString = left instanceof Empty ? "" : left.toString();
+        String rightString = right instanceof Empty ? "" : right.toString();
+        return "(" + leftString + value + rightString + ")";
+    }
+}
+
+

@@ -20,54 +20,121 @@ func change(_ amount: Int) -> Result<[Int: Int], NegativeAmountError> {
 func firstThenLowerCase(of array: [String], satisfying predicate: (String) -> Bool) -> String? {
     return array.first(where: predicate)?.lowercased()
 }
+// // Write your say function here
 
+// // Define the Say class
+// class Say {
+//     private var words: [String] = []
 
-// Write your say function here
-// func say(_ first: String? = nil) -> (String?) -> String {
-//     return { second in
-//         if let first = first {
-//             if let second = second {
-//                 // Call `say` with the concatenated string and return the inner function
-//                 return say("\(first) \(second)")()
-//             } else {
-//                 return first // Return the first word if no second word is provided
-//             }
-//         } else {
-//             return "" // Return an empty string if no words are provided
-//         }
+//     func and(_ word: String) -> Say {
+//         words.append(word)
+//         return self
+//     }
+
+//     var phrase: String {
+//         return words.joined(separator: " ")
 //     }
 // }
 
+// // Provide a function that returns an instance of Say
+// func say(_ word: String = "") -> Say {
+//     let instance = Say()
+//     if !word.isEmpty {
+//         return instance.and(word)
+//     }
+//     return instance
+// }
+
+
+
 
 // Write your meaningfulLineCount function here
-func meaningfulLineCount(_ filename: String) async -> Result<Int, NoSuchFileError> {
-    let fileURL = URL(fileURLWithPath: filename)
+func meaningfulLineCount(_ filePath: String) -> Result<Int, NoSuchFileError> {
+    let fileURL = URL(fileURLWithPath: filePath)
 
     do {
-        let content = try String(contentsOf: fileURL)
-        let lines = content.split(whereSeparator: \.isNewline)
-        let meaningfulLines = lines.filter { line in
-            let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
+        let content = try String(contentsOf: fileURL, encoding: .utf8)
+        let lines = content.components(separatedBy: .newlines)
+        
+        // Count meaningful lines (non-empty and not just whitespace)
+        let meaningfulLinesCount = lines.filter { 
+            let trimmedLine = $0.trimmingCharacters(in: .whitespaces)
             return !trimmedLine.isEmpty && !trimmedLine.hasPrefix("#")
-        }
-        return .success(meaningfulLines.count)
+        }.count
+        
+        return .success(meaningfulLinesCount)
     } catch {
+        // Return a failure if the file does not exist or cannot be read
         return .failure(NoSuchFileError())
     }
 }
-
-
 // Write your Quaternion struct here
-import Foundation
 
 struct Quaternion {
-    var a: Double
-    var b: Double
-    var c: Double
-    var d: Double
+    var a: Double  // Real part
+    var b: Double  // i component
+    var c: Double  // j component
+    var d: Double  // k component
+
+    // Original initializer with four parameters
+    init(a: Double, b: Double, c: Double, d: Double) {
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+    }
+
+    // Initializer for b and c
+    init(b: Double, c: Double) {
+        self.a = 0.0
+        self.b = b
+        self.c = c
+        self.d = 0.0
+    }
+
+    // Initializer for b only
+    init(b: Double) {
+        self.a = 0.0
+        self.b = b
+        self.c = 0.0
+        self.d = 0.0
+    }
+    
+    // New initializer to allow for single a value
+    init(a: Double) {
+        self.a = a
+        self.b = 0.0
+        self.c = 0.0
+        self.d = 0.0
+    }
+
+    var coefficients: [Double] {
+        return [a, b, c, d]
+    }
+
+    static var ZERO: Quaternion {
+        return Quaternion(a: 0, b: 0, c: 0, d: 0)
+    }
+
+    static var I: Quaternion {
+        return Quaternion(a: 0, b: 1, c: 0, d: 0)
+    }
+
+    static var J: Quaternion {
+        return Quaternion(a: 0, b: 0, c: 1, d: 0)
+    }
+
+    static var K: Quaternion {
+        return Quaternion(a: 0, b: 0, c: 0, d: 1)
+    }
 
     static func + (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
-        return Quaternion(a: lhs.a + rhs.a, b: lhs.b + rhs.b, c: lhs.c + rhs.c, d: lhs.d + rhs.d)
+        return Quaternion(
+            a: lhs.a + rhs.a,
+            b: lhs.b + rhs.b,
+            c: lhs.c + rhs.c,
+            d: lhs.d + rhs.d
+        )
     }
 
     static func * (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
@@ -79,44 +146,34 @@ struct Quaternion {
         )
     }
 
-    var coefficients: (Double, Double, Double, Double) {
-        return (a, b, c, d)
-    }
-
     var conjugate: Quaternion {
         return Quaternion(a: a, b: -b, c: -c, d: -d)
     }
 
     var description: String {
-        var s = ""
-        let coeffs = coefficients
-        let units = ["", "i", "j", "k"]
-        
-        for index in 0..<4 {
-            let coeff = coeffs[index]
-            if coeff == 0 { continue }
-            let unit = units[index]
-            s += coeff < 0 ? "-" : (s.isEmpty ? "" : "+")
-            s += abs(coeff) == 1 && !unit.isEmpty ? "" : "\(abs(coeff))"
-            s += unit
+        var result = ""
+        if a != 0 {
+            result += "\(a)"
         }
-        return s.isEmpty ? "0" : s
+        if b != 0 {
+            result += (b > 0 ? "+" : "") + "\(b)i"
+        }
+        if c != 0 {
+            result += (c > 0 ? "+" : "") + "\(c)j"
+        }
+        if d != 0 {
+            result += (d > 0 ? "+" : "") + "\(d)k"
+        }
+        return result.isEmpty ? "0" : result
     }
 }
 
-func main() {
-    let q1 = Quaternion(a: 1, b: 3, c: 5, d: 2)
-    let q2 = Quaternion(a: -2, b: 2, c: 8, d: -1)
-
-    let qSum = q1 + q2
-    let qProduct = q1 * q2
-
-    print("Sum: \(qSum.description)")
-    print("Product: \(qProduct.description)")
-    print("Conjugate of q1: \(q1.conjugate.description)")
+extension Quaternion: Equatable {
+    static func ==(lhs: Quaternion, rhs: Quaternion) -> Bool {
+        return lhs.a == rhs.a && lhs.b == rhs.b && lhs.c == rhs.c && lhs.d == rhs.d
+    }
 }
 
-main()
 
 
 // Write your Binary Search Tree enum here

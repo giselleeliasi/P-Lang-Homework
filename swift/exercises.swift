@@ -55,8 +55,6 @@ func meaningfulLineCount(_ filePath: String) -> Result<Int, NoSuchFileError> {
     do {
         let content = try String(contentsOf: fileURL, encoding: .utf8)
         let lines = content.components(separatedBy: .newlines)
-        
-        // Count meaningful lines (non-empty and not just whitespace)
         let meaningfulLinesCount = lines.filter { 
             let trimmedLine = $0.trimmingCharacters(in: .whitespaces)
             return !trimmedLine.isEmpty && !trimmedLine.hasPrefix("#")
@@ -64,14 +62,11 @@ func meaningfulLineCount(_ filePath: String) -> Result<Int, NoSuchFileError> {
         
         return .success(meaningfulLinesCount)
     } catch {
-        // Return a failure if the file does not exist or cannot be read
         return .failure(NoSuchFileError())
     }
 }
 
 // // Write your Quaternion struct here
-
-
 struct Quaternion: CustomStringConvertible, Equatable {
     let a: Double  
     let b: Double 

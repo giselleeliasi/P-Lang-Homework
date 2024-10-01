@@ -89,10 +89,19 @@ record Quaternion(double a, double b, double c, double d) {
     public static final Quaternion J = new Quaternion(0.0, 0.0, 1.0, 0.0);
     public static final Quaternion K = new Quaternion(0.0, 0.0, 0.0, 1.0);
 
+ 
     public Quaternion {
         if (Double.isNaN(a) || Double.isNaN(b) || Double.isNaN(c) || Double.isNaN(d)) {
             throw new IllegalArgumentException("Coefficients cannot be NaN");
         }
+    }
+
+    public List<Double> coefficients() {
+        return List.of(a, b, c, d);
+    }
+
+    public Quaternion conjugate() {
+        return new Quaternion(a, -b, -c, -d);
     }
 
     public Quaternion plus(Quaternion other) {
@@ -111,14 +120,6 @@ record Quaternion(double a, double b, double c, double d) {
                 this.a * other.c - this.b * other.d + this.c * other.a + this.d * other.b,
                 this.a * other.d + this.b * other.c - this.c * other.b + this.d * other.a
         );
-    }
-
-    public Quaternion conjugate() {
-        return new Quaternion(this.a, -this.b, -this.c, -this.d);
-    }
-
-    public double[] coefficients() {
-        return new double[] {this.a, this.b, this.c, this.d};
     }
 
     @Override

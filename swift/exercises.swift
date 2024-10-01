@@ -68,15 +68,16 @@ func meaningfulLineCount(_ filePath: String) -> Result<Int, NoSuchFileError> {
         return .failure(NoSuchFileError())
     }
 }
-// Write your Quaternion struct here
 
-struct Quaternion {
-    var a: Double  // Real part
-    var b: Double  // i component
-    var c: Double  // j component
-    var d: Double  // k component
+// // Write your Quaternion struct here
 
-    // Original initializer with four parameters
+
+struct Quaternion: CustomStringConvertible, Equatable {
+    let a: Double  
+    let b: Double 
+    let c: Double  
+    let d: Double 
+
     init(a: Double, b: Double, c: Double, d: Double) {
         self.a = a
         self.b = b
@@ -84,7 +85,6 @@ struct Quaternion {
         self.d = d
     }
 
-    // Initializer for b and c
     init(b: Double, c: Double) {
         self.a = 0.0
         self.b = b
@@ -92,7 +92,6 @@ struct Quaternion {
         self.d = 0.0
     }
 
-    // Initializer for b only
     init(b: Double) {
         self.a = 0.0
         self.b = b
@@ -100,7 +99,6 @@ struct Quaternion {
         self.d = 0.0
     }
     
-    // New initializer to allow for single a value
     init(a: Double) {
         self.a = a
         self.b = 0.0
@@ -151,29 +149,43 @@ struct Quaternion {
     }
 
     var description: String {
-        var result = ""
-        if a != 0 {
-            result += "\(a)"
-        }
-        if b != 0 {
-            result += (b > 0 ? "+" : "") + "\(b)i"
-        }
-        if c != 0 {
-            result += (c > 0 ? "+" : "") + "\(c)j"
-        }
-        if d != 0 {
-            result += (d > 0 ? "+" : "") + "\(d)k"
-        }
-        return result.isEmpty ? "0" : result
+    var result = ""
+
+    if a != 0 {
+        result += "\(a)"
     }
+
+    if b != 0 {
+        if result.count > 0 {
+            result += b > 0 ? "+" : ""
+        }
+        result += b == 1 ? "i" : (b == -1 ? "-i" : "\(b)i")
+    }
+
+    if c != 0 {
+        if result.count > 0 {
+            result += c > 0 ? "+" : ""
+        }
+        result += c == 1 ? "j" : (c == -1 ? "-j" : "\(c)j")
+    }
+
+    if d != 0 {
+        if result.count > 0 {
+            result += d > 0 ? "+" : ""
+        }
+        result += d == 1 ? "k" : (d == -1 ? "-k" : "\(d)k")
+    }
+
+    return result.isEmpty ? "0" : result
+    }
+
 }
 
-extension Quaternion: Equatable {
+extension Quaternion {
     static func ==(lhs: Quaternion, rhs: Quaternion) -> Bool {
         return lhs.a == rhs.a && lhs.b == rhs.b && lhs.c == rhs.c && lhs.d == rhs.d
     }
 }
-
 
 
 // Write your Binary Search Tree enum here
@@ -181,7 +193,6 @@ indirect enum BinarySearchTree: CustomStringConvertible {
     case empty
     case node(value: String, left: BinarySearchTree, right: BinarySearchTree)
 
-    // Insert a new value into the BST
     func insert(_ value: String) -> BinarySearchTree {
         switch self {
         case .empty:
@@ -189,13 +200,14 @@ indirect enum BinarySearchTree: CustomStringConvertible {
         case .node(let currentValue, let left, let right):
             if value < currentValue {
                 return .node(value: currentValue, left: left.insert(value), right: right)
-            } else {
+            } else if value > currentValue {
                 return .node(value: currentValue, left: left, right: right.insert(value))
+            } else {
+                return self 
             }
         }
     }
 
-    // Check if the tree contains a value
     func contains(_ value: String) -> Bool {
         switch self {
         case .empty:
@@ -211,7 +223,7 @@ indirect enum BinarySearchTree: CustomStringConvertible {
         }
     }
 
-    // Compute the size of the tree
+
     var size: Int {
         switch self {
         case .empty:
@@ -221,13 +233,15 @@ indirect enum BinarySearchTree: CustomStringConvertible {
         }
     }
 
-    // Generate a string representation of the tree
+
     var description: String {
         switch self {
         case .empty:
             return "()"
         case .node(let value, let left, let right):
-            return "(\(left.description)\(value)\(right.description))"
+            let leftString = left.description == "()" ? "" : left.description
+            let rightString = right.description == "()" ? "" : right.description
+            return "(\(leftString)\(value)\(rightString))"
         }
     }
 }

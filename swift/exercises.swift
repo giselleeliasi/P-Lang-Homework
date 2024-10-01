@@ -20,32 +20,26 @@ func change(_ amount: Int) -> Result<[Int: Int], NegativeAmountError> {
 func firstThenLowerCase(of array: [String], satisfying predicate: (String) -> Bool) -> String? {
     return array.first(where: predicate)?.lowercased()
 }
+
 // // Write your say function here
+func say(_ word: String) -> (String) -> (() -> String) {
+    var currentPhrase = word
+    return { nextWord in
+        currentPhrase += " \(nextWord)"
+        return { currentPhrase }
+    }
+}
 
-// // Define the Say class
-// class Say {
-//     private var words: [String] = []
+func say(_ word: String? = nil) -> SayChainable {
+    return SayChainable(phrase: word ?? "")
+}
 
-//     func and(_ word: String) -> Say {
-//         words.append(word)
-//         return self
-//     }
-
-//     var phrase: String {
-//         return words.joined(separator: " ")
-//     }
-// }
-
-// // Provide a function that returns an instance of Say
-// func say(_ word: String = "") -> Say {
-//     let instance = Say()
-//     if !word.isEmpty {
-//         return instance.and(word)
-//     }
-//     return instance
-// }
-
-
+struct SayChainable {
+    private(set) var phrase: String
+    func and(_ word: String) -> SayChainable {
+        return SayChainable(phrase: "\(phrase) \(word)")
+    }
+}
 
 
 // Write your meaningfulLineCount function here

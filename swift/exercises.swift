@@ -49,13 +49,20 @@ func firstThenLowerCase(of array: [String], satisfying predicate: (String) -> Bo
 
 
 // Write your meaningfulLineCount function here
-func meaningfulLineCount(_ filePath: String) -> Result<Int, NoSuchFileError> {
+func meaningfulLineCount(_ filePath: String) async -> Result<Int, NoSuchFileError> {
     let fileURL = URL(fileURLWithPath: filePath)
 
     do {
-        let content = try String(contentsOf: fileURL, encoding: .utf8)
+        let data = try await Task { () -> Data in
+            return try Data(contentsOf: fileURL)
+        }.value
+        
+        guard let content = String(data: data, encoding: .utf8) else {
+            return .failure(NoSuchFileError())
+        }
+        
         let lines = content.components(separatedBy: .newlines)
-        let meaningfulLinesCount = lines.filter { 
+        let meaningfulLinesCount = lines.filter {
             let trimmedLine = $0.trimmingCharacters(in: .whitespaces)
             return !trimmedLine.isEmpty && !trimmedLine.hasPrefix("#")
         }.count
@@ -65,6 +72,7 @@ func meaningfulLineCount(_ filePath: String) -> Result<Int, NoSuchFileError> {
         return .failure(NoSuchFileError())
     }
 }
+
 
 // // Write your Quaternion struct here
 struct Quaternion: CustomStringConvertible, Equatable {

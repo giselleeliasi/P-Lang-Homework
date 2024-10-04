@@ -38,7 +38,46 @@ Q3:Giselle
 Q4:Jillian
 Q5:Giselle & Jillian
 
+## Homework 2 Function Descriptions:
 
+Change: This function finds the least number of coins needed to make an integer in cents and returns an error if the input is not an integer or is negative.
+
+First_then_lower_case: This function iterates through a sequence and applys a predicate function to each element which returns the first string to statisfy this predicate (in lowercase) and returns none if no element is found.
+MeaningfulLineCount: 
+
+Say: This function returns a word and appends it to a sentence with each word seperated by one space and when called without an argument, returns the accumulated sentence.
+
+MeaningfulLineCount: Each of these functions counts the number of non-blank, non-comment lines within the file and counts the lines which follow the criteria. Each function provides error handling as in Java it uses throws whereas Swift and Kotlin handles errors within a block to catch exceptions with Swift returning a Result type.
+
+Quaternion: This class contains functions for addition, multiplication, string representation, and equality checks for quaternions and also gives properties for accessing coefficents, conjugatem and norm. 
+
+BinarySearchTree: This class focused on two different approaches: in Swift we used an enum based approach whereas in Java and Kotlin it utilized a sealed interface approach. Broadly, all languages modeled the tree recursivly, they each returned a new tree instead of modifying the existing one, and compared the searched value to the current nodes value to decide its next move. 
+Roles-
+
+
+Java:
+Q1:Giselle
+Q2:Jillian
+Q3:Giselle
+Q4:Jillian
+Q5:Giselle & Jillian
+Q6:Giselle & Jillian 
+
+Kotlin:
+Q1:Jillian
+Q2:Jillian
+Q3:Giselle
+Q4:Jillian
+Q5:Giselle & Jillian
+Q6:Giselle & Jillian 
+
+Swift:
+Q1:Giselle
+Q2:Jillian
+Q3:Giselle
+Q4:Giselle
+Q5:Giselle & Jillian
+Q6:Giselle & Jillian 
 ## Instructions
 
 Fork this repo for your homework submissions. Make sure your fork has a nice, descriptive name. Leaving the name as “lmu-cmsi-3801-template” is misleading, and keeping it indicates you are not taking sufficient pride in your work. After forking, **please replace the contents of this readme** file with information about your submissions, including the name(s) of the students, and a description of each assignment (as they are turned in).

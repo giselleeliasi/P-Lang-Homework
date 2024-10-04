@@ -1,6 +1,5 @@
 import java.io.BufferedReader
 import java.io.FileReader
-import java.io.IOException
 
 fun change(amount: Long): Map<Int, Long> {
     require(amount >= 0) { "Amount cannot be negative" }
@@ -13,13 +12,13 @@ fun change(amount: Long): Map<Int, Long> {
     return counts
 }
 
-// Write your first then lower case function here
+
 
 fun firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): String? {
     return strings.firstOrNull(predicate)?.lowercase()
 }
 
-// Write your say function here
+
 
 fun say(initialWord: String? = null): SayChainable {
     if (initialWord == null) {
@@ -46,7 +45,7 @@ interface SayChainable {
     val phrase: String
 }
 
-// Write your meaningfulLineCount function here
+
 
 fun meaningfulLineCount(fileName: String): Long {
     BufferedReader(FileReader(fileName)).use { reader ->
@@ -57,7 +56,7 @@ fun meaningfulLineCount(fileName: String): Long {
 }
 
 
-// Write your Quaternion data class here
+
 
 data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double) {
 
@@ -124,7 +123,7 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
     }
 }
 
-// Write your Binary Search Tree interface and implementing classes here
+
 
 sealed interface BinarySearchTree {
     fun insert(value: String): BinarySearchTree

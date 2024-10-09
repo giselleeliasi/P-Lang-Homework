@@ -21,6 +21,10 @@ func firstThenLowerCase(of array: [String], satisfying predicate: (String) -> Bo
     return array.first(where: predicate)?.lowercased()
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c7b19e3791ba7d13f44d5690a6f93b4313e5a56f
 func say(_ word: String) -> (String) -> (() -> String) {
     var currentPhrase = word
     return { nextWord in
@@ -40,6 +44,12 @@ struct SayChainable {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> c7b19e3791ba7d13f44d5690a6f93b4313e5a56f
 func meaningfulLineCount(_ filePath: String) async -> Result<Int, NoSuchFileError> {
     let fileURL = URL(fileURLWithPath: filePath)
 
@@ -64,6 +74,11 @@ func meaningfulLineCount(_ filePath: String) async -> Result<Int, NoSuchFileErro
     }
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c7b19e3791ba7d13f44d5690a6f93b4313e5a56f
 struct Quaternion: CustomStringConvertible, Equatable {
     let a: Double  
     let b: Double 
@@ -179,6 +194,11 @@ extension Quaternion {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c7b19e3791ba7d13f44d5690a6f93b4313e5a56f
 indirect enum BinarySearchTree: CustomStringConvertible {
     case empty
     case node(value: String, left: BinarySearchTree, right: BinarySearchTree)

@@ -63,8 +63,6 @@ public class Exercises {
         String phrase();
     }
 
-
-
     public static long meaningfulLineCount(String filename) throws IOException {
         long count = 0;
         
@@ -81,7 +79,6 @@ public class Exercises {
     }
     
 }
-
 
 record Quaternion(double a, double b, double c, double d) {
     public static final Quaternion ZERO = new Quaternion(0.0, 0.0, 0.0, 0.0);
@@ -152,8 +149,6 @@ record Quaternion(double a, double b, double c, double d) {
         return sb.toString();
     }
 }
-
-
 
 sealed interface BinarySearchTree permits Empty, Node {
     BinarySearchTree insert(String value);

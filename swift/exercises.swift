@@ -21,7 +21,6 @@ func firstThenLowerCase(of array: [String], satisfying predicate: (String) -> Bo
     return array.first(where: predicate)?.lowercased()
 }
 
-// // Write your say function here
 func say(_ word: String) -> (String) -> (() -> String) {
     var currentPhrase = word
     return { nextWord in
@@ -41,8 +40,6 @@ struct SayChainable {
     }
 }
 
-
-// Write your meaningfulLineCount function here
 func meaningfulLineCount(_ filePath: String) async -> Result<Int, NoSuchFileError> {
     let fileURL = URL(fileURLWithPath: filePath)
 
@@ -67,8 +64,6 @@ func meaningfulLineCount(_ filePath: String) async -> Result<Int, NoSuchFileErro
     }
 }
 
-
-// // Write your Quaternion struct here
 struct Quaternion: CustomStringConvertible, Equatable {
     let a: Double  
     let b: Double 
@@ -184,8 +179,6 @@ extension Quaternion {
     }
 }
 
-
-// Write your Binary Search Tree enum here
 indirect enum BinarySearchTree: CustomStringConvertible {
     case empty
     case node(value: String, left: BinarySearchTree, right: BinarySearchTree)

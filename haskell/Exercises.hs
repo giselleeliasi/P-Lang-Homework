@@ -1,6 +1,6 @@
 module Exercises
     ( change,
-      BST,
+      BST(..),  -- Export the BST type and its constructors
       insert,
       firstThenApply,
       powers,
@@ -8,8 +8,13 @@ module Exercises
       volume,
       surfaceArea,
       is_approx,
-      meaningfulLineCount  -- Add this to the export list
+      meaningfulLineCount,
+      size,
+      contains,
+      empty,
+      inorder,
     ) where
+
 
 import qualified Data.Map as Map
 import Data.Text (pack, unpack, replace)
@@ -69,25 +74,37 @@ volume :: Shape -> Double
 volume (Box w h d) = w * h * d
 volume (Sphere r)  = (4/3) * pi * r^3
 
-data BST a = Empty
-           | Node a (BST a) (BST a)
-           deriving (Eq, Show)
+data BST a = Empty | Node a (BST a) (BST a)
+    deriving (Eq) -- Remove the `Show` derivation here
+
 
 empty :: BST a
 empty = Empty
 
+
 insert :: Ord a => a -> BST a -> BST a
 insert x Empty = Node x Empty Empty
 insert x (Node y left right)
-    | x < y     = Node y (insert x left) right
-    | x > y     = Node y left (insert x right)
-    | otherwise = Node y left right
+  | x < y     = Node y (insert x left) right
+  | x > y     = Node y left (insert x right)
+  | otherwise = Node y left right -- If x is equal to y, do nothing
+
 
 lookupBST :: Ord a => a -> BST a -> Bool
 lookupBST _ Empty = False
 lookupBST x (Node y left right)
     | x < y     = lookupBST x left
     | x > y     = lookupBST x right
+    | otherwise = True
+size :: BST a -> Int
+size Empty = 0
+size (Node _ left right) = 1 + size left + size right
+
+contains :: Ord a => a -> BST a -> Bool
+contains _ Empty = False
+contains x (Node y left right)
+    | x < y     = contains x left
+    | x > y     = contains x right
     | otherwise = True
 
 count :: BST a -> Int
@@ -98,7 +115,12 @@ inorder :: BST a -> [a]
 inorder Empty = []
 inorder (Node x left right) = inorder left ++ [x] ++ inorder right
 
-showTree :: Show a => BST a -> String
-showTree Empty = "Empty"
-showTree (Node x left right) =
-    "Node " ++ show x ++ " (" ++ showTree left ++ ") (" ++ showTree right ++ ")"
+-- showTree :: Show a => BST a -> String
+-- showTree Empty = "()"
+-- showTree (Node x Empty Empty) = "(" ++ show x ++ " () ()" ++ ")"
+-- showTree (Node x left right) = 
+--     "(" ++ show x ++ " " ++ showTree left ++ " " ++ showTree right ++ ")"
+instance Show a => Show (BST a) where
+    show Empty = "()"
+    show (Node x Empty Empty) = "(" ++ show x ++ ")"
+    show (Node x left right) = "(" ++ show left ++ show x ++ show right ++ ")"

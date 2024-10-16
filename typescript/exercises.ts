@@ -74,8 +74,6 @@ export async function meaningfulLineCount(filePath: string): Promise<number> {
   return count
 }
 
-// Write your shape type and associated functions here
-
 interface Sphere {
   kind: "Sphere"
   radius: number
@@ -84,7 +82,7 @@ interface Sphere {
 interface Box {
   kind: "Box"
   width: number
-  length: number // Change 'height' to 'length' to match the test case
+  length: number
   depth: number
 }
 
@@ -96,7 +94,7 @@ export function surfaceArea(shape: Shape): number {
       return 4 * Math.PI * shape.radius * shape.radius
     case "Box":
       const { width, length, depth } = shape
-      return 2 * (width * length + length * depth + width * depth) // Adjust for 'length' instead of 'height'
+      return 2 * (width * length + length * depth + width * depth)
   }
 }
 
@@ -106,7 +104,7 @@ export function volume(shape: Shape): number {
       return (4 / 3) * Math.PI * Math.pow(shape.radius, 3)
     case "Box":
       const { width, length, depth } = shape
-      return width * length * depth // Adjust for 'length' instead of 'height'
+      return width * length * depth
   }
 }
 
@@ -119,4 +117,78 @@ export function toString(shape: Shape): string {
   }
 }
 
-// Write your binary search tree implementation here
+export interface BinarySearchTree<T> {
+  size(): number
+  insert(value: T): BinarySearchTree<T>
+  contains(value: T): boolean
+  inorder(): Iterable<T>
+  toString(): string
+}
+
+export class Empty<T> implements BinarySearchTree<T> {
+  insert(value: T): BinarySearchTree<T> {
+    return new Node<T>(value, new Empty<T>(), new Empty<T>())
+  }
+
+  contains(value: T): boolean {
+    return false
+  }
+
+  size(): number {
+    return 0
+  }
+
+  inorder(): Iterable<T> {
+    return []
+  }
+
+  toString(): string {
+    return "()"
+  }
+}
+
+class Node<T> implements BinarySearchTree<T> {
+  constructor(
+    private value: T,
+    private left: BinarySearchTree<T>,
+    private right: BinarySearchTree<T>
+  ) {}
+
+  insert(newValue: T): BinarySearchTree<T> {
+    if (newValue < this.value) {
+      return new Node(this.value, this.left.insert(newValue), this.right)
+    } else if (newValue > this.value) {
+      return new Node(this.value, this.left, this.right.insert(newValue))
+    } else {
+      return this
+    }
+  }
+
+  contains(value: T): boolean {
+    if (value === this.value) return true
+    if (value < this.value) return this.left.contains(value)
+    return this.right.contains(value)
+  }
+
+  size(): number {
+    return 1 + this.left.size() + this.right.size()
+  }
+
+  *inorder(): Iterable<T> {
+    yield* this.left.inorder()
+    yield this.value
+    yield* this.right.inorder()
+  }
+
+  toString(): string {
+    const leftStr = this.left.toString()
+    const rightStr = this.right.toString()
+    return `(${leftStr}${this.value}${rightStr})`.replace(/\(\)/g, "")
+  }
+}
+
+export class BinarySearchTreeFactory {
+  static createEmpty<T>(): BinarySearchTree<T> {
+    return new Empty<T>()
+  }
+}

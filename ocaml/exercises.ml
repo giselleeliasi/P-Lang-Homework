@@ -12,9 +12,17 @@ let change amount =
     in
     aux amount denominations
 
-(* Write your first then apply function here *)
+let first_then_apply array predicate consumer =
+  match List.find_opt predicate array with 
+  | None -> None
+  | Some x -> consumer x
 
 (* Write your powers generator here *)
+let powers_generator base =
+  let rec generator_from power () =
+    Seq.Cons (power, generator_from (power * base))
+  in
+  generator_from 1;;
 
 (* Write your line count function here *)
 

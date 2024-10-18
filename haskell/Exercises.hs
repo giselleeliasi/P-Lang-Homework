@@ -66,18 +66,13 @@ surfaceArea (Box l w h) = 2 * (l * w + w * h + h * l)
 data BST a = Empty | Node a (BST a) (BST a)
     deriving (Eq) -- Remove the `Show` derivation here
 
-
-
 empty :: BST a
 empty = Empty
-
 insert :: Ord a => a -> BST a -> BST a
 insert x Empty = Node x Empty Empty
 insert x (Node y left right)
-    | x < y     = Node y (insert x left) right
-    | x > y     = Node y left (insert x right)
-    | otherwise = Node y left right -- Ignores duplicates
-
+    | x <= y    = Node y (insert x left) right   -- Less than or equal goes left
+    | otherwise = Node y left (insert x right)   -- Greater goes right
 
 lookupBST :: Ord a => a -> BST a -> Bool
 lookupBST _ Empty = False
@@ -103,7 +98,10 @@ count (Node _ left right) = 1 + count left + count right
 inorder :: BST a -> [a]
 inorder Empty = []
 inorder (Node x left right) = inorder left ++ [x] ++ inorder right
+-- Instance needs both Show and Eq constraints
 instance Show a => Show (BST a) where
     show Empty = "()"
     show (Node x Empty Empty) = "(" ++ show x ++ ")"
+    show (Node x left Empty) = "(" ++ show left ++ show x ++ ")"
+    show (Node x Empty right) = "(" ++ show x ++ show right ++ ")"
     show (Node x left right) = "(" ++ show left ++ show x ++ show right ++ ")"

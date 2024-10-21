@@ -18,7 +18,7 @@ import Data.Text (pack, unpack, replace)
 import Data.List (isPrefixOf, find)
 import Data.Char (isSpace, toLower)
 
--- Change Function
+-- Change 
 change :: Integer -> Either String (Map.Map Integer Integer)
 change amount
     | amount < 0 = Left "amount cannot be negative"
@@ -30,7 +30,7 @@ change amount
           newCounts = Map.insert d count counts
       in changeHelper ds newRemaining newCounts
 
--- First Then Apply Function
+-- First Then Apply 
 firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b
 firstThenApply xs pred f = fmap f (find pred xs)
 
@@ -46,25 +46,25 @@ meaningfulLineCount path = do
   where
     meaningfulLine line = not (all isSpace line) && not ("--" `isPrefixOf` line)
 
--- Shape Data Type
+-- shape
 data Shape
     = Sphere Double
     | Box Double Double Double
     deriving (Eq, Show)
 
--- Volume Function
+-- Volume 
 volume :: Shape -> Double
 volume (Sphere r) = (4/3) * pi * r^3
 volume (Box l w h) = l * w * h
 
--- Surface Area Function
+-- Surface Area 
 surfaceArea :: Shape -> Double
 surfaceArea (Sphere r) = 4 * pi * r^2
 surfaceArea (Box l w h) = 2 * (l * w + w * h + h * l)
 
--- Binary Search Tree Data Type
+-- Binary Search Tree  
 data BST a = Empty | Node a (BST a) (BST a)
-    deriving (Eq) -- Remove the `Show` derivation here
+    deriving (Eq) 
 
 empty :: BST a
 empty = Empty
@@ -98,7 +98,6 @@ count (Node _ left right) = 1 + count left + count right
 inorder :: BST a -> [a]
 inorder Empty = []
 inorder (Node x left right) = inorder left ++ [x] ++ inorder right
--- Instance needs both Show and Eq constraints
 instance Show a => Show (BST a) where
     show Empty = "()"
     show (Node x Empty Empty) = "(" ++ show x ++ ")"

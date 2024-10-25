@@ -78,6 +78,56 @@ Q3:Giselle
 Q4:Giselle
 Q5:Giselle & Jillian
 Q6:Giselle & Jillian 
+
+
+## Homework 3 Function Descriptions:
+
+Change: This function calculates the minimum number of coins needed to make a given amount given certain currency ( like dimes, quarters etc.)For negative amounts it either raises an error or returning an error massage.
+
+First_then_apply: Finds the first element in a collection that satisifies a predicate and then applies a transformation function to that element. Returns the transformed result or an indictation there was no matching elelemnt.
+
+MeaningfulLineCount: Counts the number of non empty, non comment lines in a file. Reads the file line by line, filtering out the lines that dont satisfy those condtions.
+
+Powers: Generates an infinite sequence of powers of a given base starting form the base raised to the power of 0. It incrementally increases the exponent with each iteration.
+
+Shape:  This intializes the shape and has two possibilities : box, or sphere
+
+Volume: This calculates the volume of a shape which can be either a sphere or a box. It then uses the corresponding formula based on the type.
+
+surface_area:This function calculates the surface area of a shape which is either a sphere or a box. Then it uses the corresponding formula for each type.
+
+BinarySearchTree: Stores an element in hierarchical order with each node having at most two children. It allows for searching, insertion, and deletions.
+Roles-
+
+TypeScript:
+Q1:Giselle
+Q2:Giselle
+Q3:Giselle
+Q4:Jillian
+Q5:Giselle & Jillian
+Q6:Giselle & Jillian 
+Q7:Jillian
+Q8: Giselle
+
+OCamel:
+Q1:Giselle
+Q2:Giselle
+Q3:Giselle
+Q4:Jillian
+Q5:Jillian
+Q6:Jillian
+Q7:Giselle & Jillian
+Q8: Jillian
+
+Haskell:
+Q1:Jillian
+Q2:Jillian
+Q3:Giselle
+Q4:Giselle
+Q5:Giselle 
+Q6:Giselle & Jillian 
+Q7:Giselle
+Q8: Jillian
 ## Instructions
 
 Fork this repo for your homework submissions. Make sure your fork has a nice, descriptive name. Leaving the name as “lmu-cmsi-3801-template” is misleading, and keeping it indicates you are not taking sufficient pride in your work. After forking, **please replace the contents of this readme** file with information about your submissions, including the name(s) of the students, and a description of each assignment (as they are turned in).

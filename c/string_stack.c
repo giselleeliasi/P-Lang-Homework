@@ -5,7 +5,6 @@
 #define INITIAL_CAPACITY 16
 #define MAX_CAPACITY 32768
 
-// Complete your string stack implementation in this file.
 struct _Stack {
     char** elements;
     int top;
@@ -43,7 +42,7 @@ response_code push(stack s, char* item) {
     if (is_full(s)) {
         return stack_full;
     }
-    if (strlen(item) >= 256) { // Adjusted to match the test case
+    if (strlen(item) >= 256) { 
         return stack_element_too_large;
     }
     if (s->top == s->capacity) {

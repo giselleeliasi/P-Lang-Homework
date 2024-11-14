@@ -1,5 +1,4 @@
 pub struct Stack<T> {
-    // stack items are private by default
     items: Vec<T>,
 }
 
@@ -70,7 +69,6 @@ mod tests {
     fn test_stacks_cannot_be_cloned_or_copied() {
         let stack1: Stack<i32> = Stack::new();
         let _stack2: Stack<i32> = stack1;
-        // Should get a compile error if next line uncommented
-        // let _stack3: Stack<i32> = stack1; // Error: `stack1` has been moved
+
     }
 }

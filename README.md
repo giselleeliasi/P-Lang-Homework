@@ -128,6 +128,25 @@ Q5:Giselle
 Q6:Giselle & Jillian 
 Q7:Giselle
 Q8: Jillian
+
+
+## Homework 4 Function Descriptions:
+These three implementations demonstrate a Stack data structure across Rust, C++, and C, each showing their language's distinct approaches to memory management. All three use stack operations push, pop, and capacity.
+Rust: Uses ownership semantics and Vec
+C++: Uses smart pointers and utilizes RAII principles [see here] (https://en.cppreference.com/w/cpp/language/raii)
+C: Uses manual memory management  with malloc and free
+
+Roles-
+
+
+Rust: Giselle & Jillian
+
+
+C: Giselle & Jillian
+
+
+C++: Giselle & Jillian
+
 ## Instructions
 
 Fork this repo for your homework submissions. Make sure your fork has a nice, descriptive name. Leaving the name as “lmu-cmsi-3801-template” is misleading, and keeping it indicates you are not taking sufficient pride in your work. After forking, **please replace the contents of this readme** file with information about your submissions, including the name(s) of the students, and a description of each assignment (as they are turned in).

@@ -149,9 +149,9 @@ C++: Giselle & Jillian
 
 
 ## Homework 5 Function Descriptions:
-This is a program that simulates a restaurant with cooks and customer. There are 10 customers with 3 cooks and 1 waiter that can only hold 3 orders at once. The order takes a random time to complete but after 7 seconds the customer abandons the order and later returns. The program terminates when each customer finishes 5 meals and goes home.
-Roles-
-
+This is a program that simulates a restaurant with cooks and customer. There are 10 customers with 3 cooks and 1 waiter that can only hold 3 orders at once. The order takes a random time to complete but after 7 seconds the customer abandons the order and later returns. The program terminates when each customer finishes 5 meals and goes home.   
+Roles-    
+     
 Go: Jillian & Giselle 
 ## Instructions
 

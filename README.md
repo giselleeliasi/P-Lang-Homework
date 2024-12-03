@@ -147,6 +147,12 @@ C: Giselle & Jillian
 
 C++: Giselle & Jillian
 
+
+## Homework 5 Function Descriptions:
+This is a program that simulates a restaurant with cooks and customer. There are 10 customers with 3 cooks and 1 waiter that can only hold 3 orders at once. The order takes a random time to complete but after 7 seconds the customer abandons the order and later returns. The program terminates when each customer finishes 5 meals and goes home.
+Roles-
+
+Go: Jillian & Giselle 
 ## Instructions
 
 Fork this repo for your homework submissions. Make sure your fork has a nice, descriptive name. Leaving the name as “lmu-cmsi-3801-template” is misleading, and keeping it indicates you are not taking sufficient pride in your work. After forking, **please replace the contents of this readme** file with information about your submissions, including the name(s) of the students, and a description of each assignment (as they are turned in).

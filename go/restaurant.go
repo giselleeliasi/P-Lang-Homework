@@ -59,8 +59,7 @@ func Customer(name string, wg *sync.WaitGroup) {
 	}
 
 	log.Println(name, "going home")
-// }
-// main loop
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
